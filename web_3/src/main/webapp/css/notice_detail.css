@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+div, h2 { margin: 0; }
+
+#wrapper {
+    border: 1px solid black;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+h2, #wrapper div {
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid black;
+}
+
+#wrapper div:last-child {
+    text-align: right;
+    margin-bottom: 5px;
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+#file_wrapper {
+    display: flex;
+    align-items: center;
+}
+
+#file_wrapper img {
+    width: 40px;
+}
+
+a:link, a:visited {
+    text-decoration: none;
+    color: black;
+}

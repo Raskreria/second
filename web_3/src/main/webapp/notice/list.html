@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Servlet Project</title>
+<link rel="stylesheet" href="/web3/css/header.css">
+<link rel="stylesheet" href="/web3/css/footer.css">
+<link rel="stylesheet" href="/web3/css/notice_list.css">
+</head>
+<body>
+	<header>
+		<div id="login_area">
+			<form action="/web3/member/login" method="POST">
+				<input type="text" name="id" placeholder="아이디">
+				<input type="password" name="pw" placeholder="비밀번호">
+				<input type="submit" value="로그인">
+			</form>
+		</div>
+		<div id="join_area">
+			<button type="button">회원가입</button>
+		</div>
+	</header>
+	
+	<div id="wrapper">
+        <h2>공지사항</h2>
+
+        <div id="notice_wrapper">
+            <div id="title_info_wrapper">
+                <span class="order">번호</span>
+                <span class="title">제목</span>
+            </div>
+	        <div id="list">
+              	
+            </div>
+            <div class="pagination">
+                <span>1</span>
+                <span>2</span>
+                <span>3</span>
+                <span>4</span>
+            </div>
+        </div>
+
+        <div id="btn_wrapper">
+            <button type="button">공지사항 작성</button>
+        </div>
+	</div>
+	<footer>메가스터디 IT 아카데미 웹개발 취업반 Servlet 프로젝트</footer>
+	
+	<script src="/web3/js/jquery-3.6.0.min.js"></script>	
+	<script type="text/javascript">
+		//헤더에서 사용할 ajax
+		$.ajax({
+			url: "/web3/notice/header",
+			type : "GET",
+			dataType : "json",
+			success : function(loginUserInfo){
+				console.log(loginUserInfo);
+			
+				if(loginUserInfo.islogin=="true"){
+					console.log("?");
+					//로그인영역을 보여준다
+					//이 페이지에 들어오자마자 보이는게 로그인 페이지이므로 따로 할게 없음
+				}
+				else{
+					
+					$("#login_area").text(loginUserInfo["loginUserName"]+"님 환영합니다.");
+					$("#join_area").html("<button type=\"button\" id =\"logout\">로그아웃</button>");
+					$("#join_area #logout").on("click", function(){
+						location.href = "/web3/member/logout";
+					});
+					
+					if(loginUserInfo.userLevel == "admin"){
+						$("#join_area").prepend("<button type = \"button\" id = \"admin_notice_write\" > 공지사항 쓰기 </button>");
+						$("#join_area #admin_notice_write").on("click",function(){
+// 							alert("공지사항 쓰기 클릭!");
+							location.href = "/web3/notice/form";
+						})
+					}
+				}
+					
+			},
+			error : function(responseInfo){
+				console.log(responseInfo);
+				console.log("에러실행");
+			}
+		});
+		
+		//공지사항 작성 버튼에서 사용할 ajax
+		
+		
+		//공지사항 목록을 불러와 보여줄 ajax
+		$.ajax({
+			url: "/web3/notice/list",
+			type : "GET",
+			dataType : "json",
+			success : function(result){
+				console.log("잘동작");
+				console.log(result);
+				
+				let noticeList = result.noticeList;
+				console.log(noticeList);
+				
+				for(let count = 0  ; count < noticeList.length ; count++){
+					console.log(count);					
+					let notice = noticeList[count];
+					let noticeTag = "<div class=\"contents\">" +
+										"<span class=\"order\">" + (count+1)+ "</span>" +
+										"<a href=\"\">" +
+   											"<span class=\"title\">" + notice.title + "</span>"+
+										"</a>"+
+									"</div>";
+					console.log(noticeTag);
+					$("#list").append(noticeTag);
+				}
+
+			},
+			error : function(response){
+				console.log(response);
+				console.log("에러동작");
+			}
+		});
+	</script>
+	
+	
+</body>
+</html>

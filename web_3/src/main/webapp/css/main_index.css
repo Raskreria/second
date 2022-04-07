@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+a:link, a:visited {
+	text-decoration: none;
+	color: black;
+}
+
+main {
+	border: 1px solid black;
+	padding: 5px;
+	margin-bottom: 10px;
+}
+
+main > h2 {
+	margin-bottom: 10px;
+    padding-bottom: 10px;
+	border-bottom: 1px solid black; 
+}
+
+#notice_title {
+	display: flex;
+	align-items: center;
+}
+
+#notice_title h2 {
+	margin-right: 10px;
+}
+
+#notice_list {
+	padding: 5px;
+	margin-top: 10px;
+}
+
+#notice_list .contents {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+}
+
+#notice_list .contents:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+}

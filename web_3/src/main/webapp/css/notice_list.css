@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+div, h2 { margin: 0; }
+
+a:link, a:visited {
+	color: black;
+	text-decoration: none;
+}
+
+#wrapper {
+    border: 1px solid black;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+h2, #title_info_wrapper, .contents {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+}
+
+.order {
+    display: inline-block;
+    width: 50px;
+    border-right: 1px solid black;
+    text-align: center;
+}
+.title {
+    display: inline-block;
+    margin-left: 15px;
+}
+.contents:last-child {
+    margin-bottom: 0;
+}
+
+.pagination {
+	display: flex;
+	justify-content: center;
+    padding: 5px 0;
+}
+
+.pagination span {
+	width: 20px;
+	cursor: pointer;
+}
+
+#btn_wrapper {
+    text-align: right;
+}

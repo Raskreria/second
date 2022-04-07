@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+div, h2 { margin: 0; }
+
+#wrapper {
+    border: 1px solid black;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+h2, form div {
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid black;
+}
+
+#title_wrapper input {
+    width: 615px;
+}
+
+#contents_wrapper textarea {
+    resize: none;
+}
+
+#btn_wrapper {
+    text-align: right;
+    border-bottom: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 5px;
+}

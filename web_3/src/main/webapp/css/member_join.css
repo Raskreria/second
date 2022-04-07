@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+div, h3 { margin: 0; }
+
+#wrapper {
+	border: 1px solid black;
+	padding: 5px;
+	margin-bottom: 10px;
+}
+
+h3, #wrapper div {
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid black;
+}

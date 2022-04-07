@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Servlet Project</title>
+<link rel="stylesheet" href="/web3/css/header.css">
+<link rel="stylesheet" href="/web3/css/footer.css">
+<link rel="stylesheet" href="/web3/css/main_index.css">
+</head>
+<body>
+	<header>
+		<div id="login_area">
+			<form action="/web3/member/login" method="POST">
+				<input type="text" name="id" placeholder="아이디"> <input
+					type="password" name="pw" placeholder="비밀번호">
+				<button type="button">로그인</button>
+			</form>
+		</div>
+		<div id="join_area">
+			<button type="button">회원가입</button>
+		</div>
+	</header>
+
+	<main>
+		<div id="notice_title">
+			<h2>공지사항</h2>
+			<a href="/project2/notice/list.html"> [ 더보기 ] </a>
+		</div>
+
+		<div id="notice_list">공지사항이 없습니다.</div>
+		<div id="notice_list">
+			
+		</div>
+	</main>
+
+	<footer>메가스터디 IT 아카데미 웹개발 취업반 Servlet 프로젝트</footer>
+
+	<script src="/web3/js/jquery-3.6.0.min.js"></script>
+	<!-- 다운로드 받아서 jqeury 추가하기. -->
+	<script type="text/javascript">
+		$("#join_area > button").on("click", function(){
+			location.href = "/web3/member/join.html";
+		});
+		
+		$("#login_area > form > button").on("click",function(){
+			let $id = $("input[name=id]");
+			let $pw = $("input[name=pw]");
+			
+			let id = $id.val();
+			let pw = $pw.val();
+			
+			$.ajax({
+				url:"/web3/member/login",
+				type:"POST",
+				data:"id="+ id + "&" + "pw=" + pw,
+// 				데이터보낼때 공백이 있으면 공백도 인식함 주의!
+				dataType: "text" ,
+				success: function(loginUserName){
+// 					로그인에 성공했을 때
+// 					-> 로그인한 사용자의 이름을 출력
+					$("#login_area").text(loginUserName+"님 환영합니다!");
+					$("#join_area button").text("로그아웃");
+					$("#join_area > button").off("click");	
+					
+					$("#join_area > button").on("click", function(){
+						location.href = "/web3/member/logout";
+					});
+				},
+				error: function(){
+// 					로그인에 실패했을 때
+// 					서버에 문제가 생겼을 때 
+// 					-> 아무것도 하지 않음.
+					alert("아이디와 비밀번호를 확인해주세요!");
+				}
+				
+			})
+			
+			return false;
+		});
+		
+		//공지사항 목록을 불러와 보여줄 ajax
+		$.ajax({
+			url: "/web3/notice/list",
+			type : "GET",
+			dataType : "json",
+			success : function(result){
+				console.log("잘동작");
+				console.log(result);
+				
+				let noticeList = result.noticeList;
+				console.log(noticeList);
+				
+				for(let count = 0  ; count <noticeList.length ; count++){
+					let notice = noticeList[count];
+					let noticeTag = "<div class=\"contents\">" +
+										"<a href=\"\">" +
+   											"<span class=\"title\">" + notice.title + "</span>"+
+										"</a>"+
+									"</div>";
+					console.log(noticeTag);
+					$("#noticelist").append(noticeTag);
+				}
+
+			},
+			error : function(response){
+				console.log(response);
+				console.log("에러동작");
+			}
+		});
+	</script>
+</body>
+</html>
