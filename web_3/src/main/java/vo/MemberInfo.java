@@ -9,6 +9,10 @@ public class MemberInfo {
 		this.pw = pw;
 		this.name = name;
 	}
+	public MemberInfo(String id,String pw) {
+		this.id  = id;
+		this.pw = pw;
+	}
 
 	public String getId() {
 		return id;
