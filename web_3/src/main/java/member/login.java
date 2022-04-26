@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.UserInfo;
 import etc.Database;
 import vo.MemberInfo;
 
@@ -19,25 +20,18 @@ public class login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");		
-//		클라이언트가 보낸 파라미터를 꺼냄
 
-//		로그인 처리
-		boolean success = false;
-//		- DB에서 아이디와 비밀번호를 사용해서 일치하는 사용자를 찾는다.
-		String loginUserName = null;
-		for(MemberInfo nthMemberInfo : Database.memberInfoTable) {
-			String nthMemberId = nthMemberInfo.getId();
-			String nthMemberPw = nthMemberInfo.getPw();
-			
-			if(nthMemberId.equals(id)&&nthMemberPw.equals(pw)) {
-				loginUserName = nthMemberInfo.getName();
-				success = true;
-				break;
-			}
-		}
-//		- 찾았으면 로그인 성공
-//		- 찾지못했으면 로그인 실패
+		MemberInfo memberInfo = new MemberInfo(id,pw);
+		UserInfo userInfo = new UserInfo();
+		
+		memberInfo = userInfo.selectUserInfo(memberInfo);
+		
+		boolean success = memberInfo.getName() == null ? false : true;
+		
+		
 		if(success) {
+			String loginUserName = memberInfo.getName();
+			
 			HttpSession session = request.getSession();
 			session.setAttribute("isLogin", "true");
 			

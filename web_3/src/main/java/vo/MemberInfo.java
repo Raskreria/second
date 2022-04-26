@@ -4,6 +4,9 @@ public class MemberInfo {
 	private String id;
 	private String pw;
 	private String name;
+	public MemberInfo(String id, String pw) {
+		this(id,pw,null);
+	}
 	public MemberInfo(String id, String pw, String name) {
 		this.id  = id;
 		this.pw = pw;
